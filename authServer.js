@@ -1,4 +1,5 @@
 require('dotenv').config()
+const fs = require('fs')
 
 const express = require('express')
 const app = express()
@@ -37,7 +38,11 @@ app.post('/login', (req, res) => {
 })
 
 function generateAccessToken(user) {
-  return jwt.sign(user, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '15s' })
+  console.log(process.env.ACCESS_TOKEN_SECRET)
+
+  return jwt.sign(user, process.env.ACCESS_TOKEN_SECRET, {algorithm:'RS256'})
+
+  // return jwt.sign(user, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '30s' })
 }
 
 app.listen(4000)
